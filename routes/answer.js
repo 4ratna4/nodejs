@@ -2,12 +2,14 @@ const express = require("express");
 const router = express.Router();
 const authMiddleware = require("../middleware/auth");
 const {
+  GET_ANSWER,
   INSERT_ANSWER,
-  // ALL_ANSWERS,
+  DELETE_ANSWER,
 } = require("../controllers/answer");
 
-router.post("/answer", INSERT_ANSWER);
-// router.post("/allanswers", authMiddleware, ALL_ANSWERS);
+router.post("/answer", authMiddleware, INSERT_ANSWER);
+router.delete("/answer/:id", authMiddleware, DELETE_ANSWER);
+
 
 
 module.exports = router;

@@ -2,12 +2,14 @@ const express = require("express");
 const router = express.Router();
 const authMiddleware = require("../middleware/auth");
 const {
+  GET_QUESTION,
   INSERT_QUESTION,
-//   ALL_QUESTIONS,
+  DELETE_QUESTION,
 } = require("../controllers/question");
 
-router.post("/question", INSERT_QUESTION);
-// router.post("/allquestions", authMiddleware, ALL_QUESTIONS);
+router.post("/question", authMiddleware, INSERT_QUESTION);
+router.delete("/question/:id", authMiddleware, DELETE_QUESTION);
+
 
 
 module.exports = router;

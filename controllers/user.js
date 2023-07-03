@@ -13,9 +13,7 @@ module.exports.LOGUP_USER = async (req, res) => {
           id: uniqid(),
           name: req.body.name,  
           email: req.body.email,
-          password: hash,
-          bought_tickets: req.body.bought_ticket,
-          money_balance: req.body.money_balance,          
+          password: hash,         
         });
 
         await user.save();
@@ -45,7 +43,7 @@ module.exports.LOGIN = async (req, res) => {
             userId: user.id,
           },
           process.env.JWT_SECRET,
-          { expiresIn: "2h" },
+          { expiresIn: "30d" },
           {
             algorithm: "RS256",
           }
