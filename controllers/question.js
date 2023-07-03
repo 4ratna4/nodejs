@@ -31,3 +31,13 @@ module.exports.DELETE_QUESTION = async (req, res) => {
   }
 };
 
+module.exports.GET_QUESTIONS = async (req, res) => {
+  try {
+    const questions = await QuestionModel.find();
+    res.status(200).json({ questions: questions });
+  } catch (err) {
+    console.log("ERR", err);
+    res.status(500).json({ response: "ERROR, please try later" });
+  }
+};
+
