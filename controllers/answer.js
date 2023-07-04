@@ -2,6 +2,9 @@ const uniqid = require("uniqid");
 const AnswerModel = require("../models/answer");
 const UserModel = require("../models/user");
 
+const QuestionModel = require("../models/question");
+
+
 
 module.exports.INSERT_ANSWER = async (req, res) => {
   try {
@@ -31,50 +34,22 @@ module.exports.DELETE_ANSWER = async (req, res) => {
   }
 };
 
-// module.exports.GET_QUESTION_ANSWERS = async (req, res) => {
-//   try {
-//     const questionId = req.params.id;
-//     const answers = await AnswerModel.find({ questionId });
-
-//     res.status(200).json({ answers });
-//   } catch (err) {
-//     console.log("ERR", err);
-//     res.status(500).json({ response: "ERROR, please try later" });
-//   }
-// };
 
 module.exports.GET_QUESTION_ANSWERS = async (req, res) => {
   try {
-    const aggregateAnswer = await AnswerModelModel.aggregate([
-      {
-        $lookup: {
-          from: "answers",
-          localField: "_id",
-          foreignField: "answerText",
-          as: "answers",
-        },
-      },
-      { $match: { id: req.body.questionId } },
-    ]).exec();
+    const questionId = req.params.id;
 
-    res.status(200).json( {questions} );
+    const question = await QuestionModel.findById(questionId);
+    if (!question) {
+      return res.status(404).json({ response: "Question not found" });
+    }
+
+    const answers = await AnswerModel.find({ questionId });
+
+    res.status(200).json({ question, answers });
   } catch (err) {
     console.log("ERR", err);
     res.status(500).json({ response: "ERROR, please try later" });
   }
 };
-
-
-// module.exports.GET_ALL_ANSWERS = async (req, res) => {
-//   try {
-//     const questions = await QuestionModel.find();
-
-//     const answers = await AnswerModel.find({ questionId: { $in: questions.map(q => q._id) } });
-
-//     res.status(200).json({ answers });
-//   } catch (err) {
-//     console.log("ERR", err);
-//     res.status(500).json({ response: "ERROR, please try later" });
-//   }
-// };
 
