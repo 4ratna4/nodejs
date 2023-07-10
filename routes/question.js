@@ -8,7 +8,7 @@ const {
 } = require("../controllers/question");
 
 router.get("/questions", GET_QUESTIONS);
-router.post("/question", authMiddleware, INSERT_QUESTION);
+router.post("/question", INSERT_QUESTION);
 router.delete("/question/:id", authMiddleware, DELETE_QUESTION);
 
 

@@ -7,9 +7,9 @@ const {
   DELETE_ANSWER,
 } = require("../controllers/answer");
 
-router.get("/question/:id/answers", authMiddleware, GET_QUESTION_ANSWERS);
-router.post("/question/:id/answers", authMiddleware, INSERT_ANSWER);
-router.delete("/answer/:id", authMiddleware, DELETE_ANSWER);
+router.get("/question/:id/answers", GET_QUESTION_ANSWERS);
+router.post("/question/:id/answers", INSERT_ANSWER);
+router.delete("/answer/:id", DELETE_ANSWER);
 
 
 
